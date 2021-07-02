@@ -7,6 +7,8 @@ import 'package:intl/intl.dart';
 import 'package:webfeed/webfeed.dart';
 
 class NewsItem {
+  final int maxBits = 128;
+
   String title = "";
   String? imgUrl;
   DateTime date = DateTime.now();
@@ -25,10 +27,20 @@ class NewsItem {
   NewsItem.fromRssItem(RssItem rssItem){
     title= (rssItem.title ?? "").trim();
 
+    List<int> codeUnits = title.codeUnits;
+    if (codeUnits.length > 0) {
+      title = utf8.decode(codeUnits);
+    }
+
     date= rssItem.pubDate?.toLocal() ?? DateTime.now();
     link= (rssItem.link ?? "").trim();
 
     description= (rssItem.description ?? "").trim();
+    List<int> codeUnitsDescription = description.codeUnits;
+    if (codeUnits.length > 0) {
+      description = utf8.decode(codeUnitsDescription);
+    }
+
     isHtml = hasHTMLTags(description);
     if (!isHtml) {
       try {

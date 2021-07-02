@@ -27,20 +27,30 @@ class _BodyState extends State<Body> {
   Widget buildBody() {
     return Container(
         decoration: BoxDecoration(color: backgroundGray),
-        child: widget.news.length > 0 ? ListView.separated(
-          padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
-          itemBuilder: (context, index) {
-            return _buildItem(context, widget.news[index]);
-          },
-          itemCount: widget.news.length,
-          separatorBuilder: (BuildContext context, int index) {
-            return Container(
-              height: 10,
-              color: backgroundGray,
-            );
-          },
-        ) : Center(child: Text('Sorry! Service Unavailable.', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),),)
-    );
+        child: widget.news.length > 0
+            ? ListView.separated(
+                padding:
+                    EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                itemBuilder: (context, index) {
+                  return _buildItem(context, widget.news[index]);
+                },
+                itemCount: widget.news.length,
+                separatorBuilder: (BuildContext context, int index) {
+                  return Container(
+                    height: 10,
+                    color: backgroundGray,
+                  );
+                },
+              )
+            : Center(
+                child: Text(
+                  'Sorry! Service Unavailable.',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500),
+                ),
+              ));
   }
 
   Widget _buildItem(BuildContext context, NewsItem item) {

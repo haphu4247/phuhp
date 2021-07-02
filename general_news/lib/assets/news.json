@@ -1,0 +1,38 @@
+[
+  {
+    "id": "abcnews",
+    "name": "ABC News",
+    "lastSelected": 0,
+    "data": "{\"Top Stories\":\"https://abcnews.go.com/abcnews/topstories\",\"World Headlines\":\"https://abcnews.go.com/abcnews/internationalheadlines\",\"US Headlines\":\"https://abcnews.go.com/abcnews/usheadlines\",\"Politics Headlines\":\"https://abcnews.go.com/abcnews/politicsheadlines\",\"The Blotter from Brian Ross\":\"https://abcnews.go.com/abcnews/blotterheadlines\",\"Cuomo on the Case\":\"https://abcnews.go.com/abcnews/thelawheadlines\",\"Money Headlines\":\"https://abcnews.go.com/abcnews/moneyheadlines\",\"Technology Headlines\":\"https://abcnews.go.com/abcnews/technologyheadlines\",\"Health Headlines\":\"https://abcnews.go.com/abcnews/healthheadlines\",\"Entertainment Headlines\":\"https://abcnews.go.com/abcnews/entertainmentheadlines\",\"Travel Headlines\":\"https://abcnews.go.com/abcnews/travelheadlines\",\"ESPN Sports\":\"https://abcnews.go.com/abcnews/sportsheadlines\",\"World News Headlines\":\"https://abcnews.go.com/abcnews/worldnewsheadlines\",\"20/20 Headlines\":\"https://abcnews.go.com/abcnews/2020headlines\",\"Primetime Headlines\":\"https://abcnews.go.com/abcnews/primetimeheadlines\",\"Nightline Headlines\":\"https://abcnews.go.com/abcnews/nightlineheadlines\",\"Good Morning America Headlines\":\"https://abcnews.go.com/abcnews/gmaheadlines\",\"This Week Headlines\":\"https://abcnews.go.com/abcnews/thisweekheadlines\"}"
+  },
+  {
+    "id": "cnet",
+    "name": "c|net",
+    "lastSelected": 0,
+    "data": "{\"News\":\"https://www.cnet.com/rss/news/\",\"Reviews\":\"https://www.cnet.com/rss/reviews/\",\"How To\":\"https://www.cnet.com/rss/how-to/\",\"Deals\":\"https://www.cnet.com/rss/deals/\",\"Crave\":\"https://www.cnet.com/rss/crave/\",\"Android Update\":\"https://www.cnet.com/rss/android-update/\",\"Gaming\":\"https://www.cnet.com/rss/gaming/\",\"Cheapskate\":\"https://www.cnet.com/rss/cheapskate/\",\"Most Popular Products\":\"https://www.cnet.com/rss/most-popular-products/\",\"Smart Home\":\"https://www.cnet.com/rss/smart-home/\",\"All of CNET\":\"https://www.cnet.com/rss/all/\"}"
+  },
+  {
+    "id": "unnews",
+    "name": "UN News",
+    "lastSelected": 0,
+    "data": "{\"Top Stories\":\"https://news.un.org/feed/subscribe/en/news/all/rss.xml\",\"Middle East\":\"https://news.un.org/feed/subscribe/en/news/region/middle-east/feed/rss.xml\",\"Africa\":\"https://news.un.org/feed/subscribe/en/news/region/africa/feed/rss.xml\",\"Europe\":\"https://news.un.org/feed/subscribe/en/news/region/europe/feed/rss.xml\",\"Americas\":\"https://news.un.org/feed/subscribe/en/news/region/americas/feed/rss.xml\",\"Asia Pacific\":\"https://news.un.org/feed/subscribe/en/news/region/asia-pacific/feed/rss.xml\",\"Health\":\"https://news.un.org/feed/subscribe/en/news/topic/health/feed/rss.xml\",\"UN Affairs\":\"https://news.un.org/feed/subscribe/en/news/topic/un-affairs/feed/rss.xml\",\"Law And Crime Prevention\":\"https://news.un.org/feed/subscribe/en/news/topic/law-and-crime-prevention/feed/rss.xml\",\"Human Right\":\"https://news.un.org/feed/subscribe/en/news/topic/human-rights/feed/rss.xml\",\"Humanitarian Aid\":\"https://news.un.org/feed/subscribe/en/news/topic/humanitarian-aid/feed/rss.xml\",\"Climate Change\":\"https://news.un.org/feed/subscribe/en/news/topic/climate-change/feed/rss.xml\",\"Culture And Education\":\"https://news.un.org/feed/subscribe/en/news/topic/culture-and-education/feed/rss.xml\",\"Economic Development\":\"https://news.un.org/feed/subscribe/en/news/topic/economic-development/feed/rss.xml\",\"Women\":\"https://news.un.org/feed/subscribe/en/news/topic/women/feed/rss.xml\",\"Peace And Security\":\"https://news.un.org/feed/subscribe/en/news/topic/peace-and-security/feed/rss.xml\",\"Migrants And Refugees\":\"https://news.un.org/feed/subscribe/en/news/topic/migrants-and-refugees/feed/rss.xml\",\"SDGs\":\"https://news.un.org/feed/subscribe/en/news/topic/sdgs/feed/rss.xml\"}"
+  },
+  {
+    "id": "vietnamnews",
+    "name": "Việt Nam News",
+    "lastSelected": 0,
+    "data": "{\"A Twist in the Tale\":\"https://vietnamnews.vn/rss/a-twist-in-the-tale.rss\",\"Agriculture\":\"https://vietnamnews.vn/rss/agriculture.rss\",\"bizhub\":\"https://vietnamnews.vn/rss/bizhub.rss\",\"Brandinfo\":\"https://vietnamnews.vn/rss/brandinfo.rss\",\"Domestic Press Highlights\":\"https://vietnamnews.vn/rss/domestic-press-highlights.rss\",\"Economy\":\"https://vietnamnews.vn/rss/economy.rss\",\"English Through the News\":\"https://vietnamnews.vn/rss/english-through-the-news.rss\",\"Environment\":\"https://vietnamnews.vn/rss/environment.rss\",\"Industries\":\"https://vietnamnews.vn/rss/industries.rss\",\"Life And Style\":\"https://vietnamnews.vn/rss/life-style.rss\",\"ovietnam\":\"https://vietnamnews.vn/rss/ovietnam.rss\",\"Opinion\":\"https://vietnamnews.vn/rss/opinion.rss\",\"Politics And Laws\":\"https://vietnamnews.vn/rss/politics-laws.rss\",\"Sunday\":\"https://vietnamnews.vn/rss/sunday.rss\",\"Society\":\"https://vietnamnews.vn/rss/society.rss\",\"Sports\":\"https://vietnamnews.vn/rss/sports.rss\",\"Travel\":\"https://vietnamnews.vn/rss/travel.rss\",\"Talk Around Town\":\"https://vietnamnews.vn/rss/talk-around-town.rss\",\"World\":\"https://vietnamnews.vn/rss/world.rss\"}"
+  },
+  {
+    "id": "vnexpress",
+    "name": "VN Express",
+    "lastSelected": 0,
+    "data": "{\"Tin mới nhất\":\"https://vnexpress.net/rss/tin-moi-nhat.rss\",\"Tin nổi bật\":\"https://vnexpress.net/rss/tin-noi-bat.rss\",\"Thế giới\":\"https://vnexpress.net/rss/the-gioi.rss\",\"Thời sự\":\"https://vnexpress.net/rss/thoi-su.rss\",\"Kinh doang\":\"https://vnexpress.net/rss/kinh-doanh.rss\",\"Startup\":\"https://vnexpress.net/rss/startup.rss\",\"Giải trí\":\"https://vnexpress.net/rss/giai-tri.rss\",\"Thể thao\":\"https://vnexpress.net/rss/the-thao.rss\",\"Pháp luật\":\"https://vnexpress.net/rss/phap-luat.rss\",\"Giáo dục\":\"https://vnexpress.net/rss/giao-duc.rss\",\"Sức khoẻ\":\"https://vnexpress.net/rss/suc-khoe.rss\",\"Đời sống\":\"https://vnexpress.net/rss/gia-dinh.rss\",\"Du lịch\":\"https://vnexpress.net/rss/du-lich.rss\",\"Khoa học\":\"https://vnexpress.net/rss/khoa-hoc.rss\",\"Số hoá\":\"https://vnexpress.net/rss/so-hoa.rss\",\"Xe\":\"https://vnexpress.net/rss/oto-xe-may.rss\",\"Ý kiến\":\"https://vnexpress.net/rss/y-kien.rss\",\"Tâm sự\":\"https://vnexpress.net/rss/tam-su.rss\",\"Cười\":\"https://vnexpress.net/rss/cuoi.rss\",\"Tin xem nhiều\":\"https://vnexpress.net/rss/tin-xem-nhieu.rss\"}"
+  },
+  {
+    "id": "indiatoday",
+    "name": "India Today",
+    "lastSelected": 0,
+    "data": "{\"Home\":\"https://www.indiatoday.in/rss/home\",\"Nation\":\"https://www.indiatoday.in/rss/1206514\",\"Leisure\":\"https://www.indiatoday.in/rss/1206551\",\"The Big Story\":\"https://www.indiatoday.in/rss/1206614\",\"Cover Story\":\"https://www.indiatoday.in/rss/1206509\",\"Glass House\":\"https://www.indiatoday.in/rss/1206610\",\"EyeCatchers\":\"https://www.indiatoday.in/rss/1206494\",\"Glossary\":\"https://www.indiatoday.in/rss/1206613\",\"Top Stories\":\"https://www.indiatoday.in/rss/1206584\",\"States\":\"https://www.indiatoday.in/rss/1206500\",\"Economy\":\"https://www.indiatoday.in/rss/1206513\",\"World\":\"https://www.indiatoday.in/rss/1206577\",\"Sport\":\"https://www.indiatoday.in/rss/1206550\",\"Offtrack\":\"https://www.indiatoday.in/rss/1206503\",\"Sociaty And The Arts\":\"https://www.indiatoday.in/rss/1206504\",\"Your Week\":\"https://www.indiatoday.in/rss/1206506\",\"Photos\":\"https://www.indiatoday.in/rss-gallery\"}"
+  }
+]

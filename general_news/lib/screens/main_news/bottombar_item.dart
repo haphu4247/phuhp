@@ -15,11 +15,16 @@ class _BottomBarItemState extends State<BottomBarItem> {
   Widget build(BuildContext context) {
     return Center(
         child: TextButton(
-          child: Text(widget.data.title, style: TextStyle(color: Colors.white, fontStyle: FontStyle.normal, fontSize: 18),),
-          onPressed: widget.onTap,
-          style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(widget.data.isSelected ? Colors.lightBlueAccent : Colors.blue)),
-        )
-    );
+      child: Text(
+        widget.data.title,
+        style: TextStyle(
+            color: Colors.white, fontStyle: FontStyle.normal, fontSize: 18),
+      ),
+      onPressed: widget.onTap,
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(
+              widget.data.isSelected ? Colors.lightBlueAccent : Colors.blue)),
+    ));
   }
 }
 

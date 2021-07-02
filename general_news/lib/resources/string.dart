@@ -11,24 +11,4 @@ final String abc_news_json = "{\"Top Stories\":\"https://abcnews.go.com/abcnews/
 
 final String un_news_json = "{\"Top Stories\":\"https://news.un.org/feed/subscribe/en/news/all/rss.xml\",\"Middle East\":\"https://news.un.org/feed/subscribe/en/news/region/middle-east/feed/rss.xml\",\"Africa\":\"https://news.un.org/feed/subscribe/en/news/region/africa/feed/rss.xml\",\"Europe\":\"https://news.un.org/feed/subscribe/en/news/region/europe/feed/rss.xml\",\"Americas\":\"https://news.un.org/feed/subscribe/en/news/region/americas/feed/rss.xml\",\"Asia Pacific\":\"https://news.un.org/feed/subscribe/en/news/region/asia-pacific/feed/rss.xml\",\"Health\":\"https://news.un.org/feed/subscribe/en/news/topic/health/feed/rss.xml\",\"UN Affairs\":\"https://news.un.org/feed/subscribe/en/news/topic/un-affairs/feed/rss.xml\",\"Law And Crime Prevention\":\"https://news.un.org/feed/subscribe/en/news/topic/law-and-crime-prevention/feed/rss.xml\",\"Human Right\":\"https://news.un.org/feed/subscribe/en/news/topic/human-rights/feed/rss.xml\",\"Humanitarian Aid\":\"https://news.un.org/feed/subscribe/en/news/topic/humanitarian-aid/feed/rss.xml\",\"Climate Change\":\"https://news.un.org/feed/subscribe/en/news/topic/climate-change/feed/rss.xml\",\"Culture And Education\":\"https://news.un.org/feed/subscribe/en/news/topic/culture-and-education/feed/rss.xml\",\"Economic Development\":\"https://news.un.org/feed/subscribe/en/news/topic/economic-development/feed/rss.xml\",\"Women\":\"https://news.un.org/feed/subscribe/en/news/topic/women/feed/rss.xml\",\"Peace And Security\":\"https://news.un.org/feed/subscribe/en/news/topic/peace-and-security/feed/rss.xml\",\"Migrants And Refugees\":\"https://news.un.org/feed/subscribe/en/news/topic/migrants-and-refugees/feed/rss.xml\",\"SDGs\":\"https://news.un.org/feed/subscribe/en/news/topic/sdgs/feed/rss.xml\"}";
 
-final String vnexpress_json = "{"
-    "\"Tin mới nhất\":\"https://vnexpress.net/rss/tin-moi-nhat.rss\","
-    "\"Tin nổi bật\":\"https://vnexpress.net/rss/tin-noi-bat.rss\","
-    "\"Thế giới\":\"https://vnexpress.net/rss/the-gioi.rss\","
-    "\"Thời sự\":\"https://vnexpress.net/rss/thoi-su.rss\","
-    "\"Kinh doang\":\"https://vnexpress.net/rss/kinh-doanh.rss\","
-    "\"Startup\":\"https://vnexpress.net/rss/startup.rss\","
-    "\"Giải trí\":\"https://vnexpress.net/rss/giai-tri.rss\","
-    "\"Thể thao\":\"https://vnexpress.net/rss/the-thao.rss\","
-    "\"Pháp luật\":\"https://vnexpress.net/rss/phap-luat.rss\","
-    "\"Giáo dục\":\"https://vnexpress.net/rss/giao-duc.rss\","
-    "\"Sức khoẻ\":\"https://vnexpress.net/rss/suc-khoe.rss\","
-    "\"Đời sống\":\"https://vnexpress.net/rss/gia-dinh.rss\","
-    "\"Du lịch\":\"https://vnexpress.net/rss/du-lich.rss\","
-    "\"Khoa học\":\"https://vnexpress.net/rss/khoa-hoc.rss\","
-    "\"Số hoá\":\"https://vnexpress.net/rss/so-hoa.rss\","
-    "\"Xe\":\"https://vnexpress.net/rss/oto-xe-may.rss\","
-    "\"Ý kiến\":\"https://vnexpress.net/rss/y-kien.rss\","
-    "\"Tâm sự\":\"https://vnexpress.net/rss/tam-su.rss\","
-    "\"Cười\":\"https://vnexpress.net/rss/cuoi.rss\","
-    "\"Tin xem nhiều\":\"https://vnexpress.net/rss/tin-xem-nhieu.rss\"}";
+final String vnexpress_json = "{\"Tin mới nhất\":\"https://vnexpress.net/rss/tin-moi-nhat.rss\",\"Tin nổi bật\":\"https://vnexpress.net/rss/tin-noi-bat.rss\",\"Thế giới\":\"https://vnexpress.net/rss/the-gioi.rss\",\"Thời sự\":\"https://vnexpress.net/rss/thoi-su.rss\",\"Kinh doang\":\"https://vnexpress.net/rss/kinh-doanh.rss\",\"Startup\":\"https://vnexpress.net/rss/startup.rss\",\"Giải trí\":\"https://vnexpress.net/rss/giai-tri.rss\",\"Thể thao\":\"https://vnexpress.net/rss/the-thao.rss\",\"Pháp luật\":\"https://vnexpress.net/rss/phap-luat.rss\",\"Giáo dục\":\"https://vnexpress.net/rss/giao-duc.rss\",\"Sức khoẻ\":\"https://vnexpress.net/rss/suc-khoe.rss\",\"Đời sống\":\"https://vnexpress.net/rss/gia-dinh.rss\",\"Du lịch\":\"https://vnexpress.net/rss/du-lich.rss\",\"Khoa học\":\"https://vnexpress.net/rss/khoa-hoc.rss\",\"Số hoá\":\"https://vnexpress.net/rss/so-hoa.rss\",\"Xe\":\"https://vnexpress.net/rss/oto-xe-may.rss\",\"Ý kiến\":\"https://vnexpress.net/rss/y-kien.rss\",\"Tâm sự\":\"https://vnexpress.net/rss/tam-su.rss\",\"Cười\":\"https://vnexpress.net/rss/cuoi.rss\",\"Tin xem nhiều\":\"https://vnexpress.net/rss/tin-xem-nhieu.rss\"}";

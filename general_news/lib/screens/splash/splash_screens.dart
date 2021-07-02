@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:general_news/models/news_json.dart';
 import 'package:general_news/screens/main_news/main_news.dart';
 import 'package:lottie/lottie.dart';
 
@@ -10,7 +13,8 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin{
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
   late final AnimationController _controller;
   var duration = Duration(milliseconds: 6000);
 
@@ -23,19 +27,30 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   ];
 
   var colorizeTextStyle = TextStyle(
-    fontFamily: 'Horizon',
-    fontSize: 45.0,
-    fontWeight: FontWeight.bold,
-    backgroundColor: Colors.blue
-  );
+      fontFamily: 'Horizon',
+      fontSize: 45.0,
+      fontWeight: FontWeight.bold,
+      backgroundColor: Colors.blue);
+
+  List<NewsJson>? newsData;
+
+  Future<List<NewsJson>> loadJsonData() async {
+    var jsonText =
+        await DefaultAssetBundle.of(context).loadString('lib/assets/news.json');
+    var result = List<Map<String, dynamic>>.from(jsonDecode(jsonText));
+    List<NewsJson> newsjson = result.map((e) => NewsJson.fromJson(e)).toList();
+    // newsjson.sort();
+    return newsjson;
+  }
+
+  _fetchNews() async {
+    newsData = await this.loadJsonData();
+  }
 
   @override
   void initState() {
+    _fetchNews();
     super.initState();
-    // _controller = AnimationController(vsync: this, duration: duration);
-    // _controller.forward().whenComplete(() => {
-    //   Navigator.pushReplacementNamed(context, MainNews.routeName)
-    // });
   }
 
   @override
@@ -48,15 +63,16 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Center(child: _colorizeAndFadeText(width, height, context),);
+    return Center(
+      child: _colorizeAndFadeText(width, height, context),
+    );
   }
 
-  Widget _colorizeAndFadeText(double width, double height, BuildContext context) {
+  Widget _colorizeAndFadeText(
+      double width, double height, BuildContext context) {
     return Container(
       width: width,
-      decoration: BoxDecoration(
-        color: Colors.blue
-      ),
+      decoration: BoxDecoration(color: Colors.blue),
       child: DefaultTextStyle(
         style: colorizeTextStyle,
         child: Center(
@@ -74,20 +90,25 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
               print("Tap Event");
             },
             isRepeatingAnimation: false,
-            onFinished: (){
-              Navigator.pushReplacementNamed(context, MainNews.routeName);
-            },
+            onFinished: onFinished,
           ),
         ),
       ),
     );
   }
 
+  onFinished() async {
+    if (newsData == null) {
+      newsData = await this.loadJsonData();
+    }
+    Navigator.pushReplacementNamed(context, MainNews.routeName,
+        arguments: newsData);
+  }
+
   Container lottieAnimation() {
     return Container(
         width: double.infinity,
         height: double.infinity,
-        child: Lottie.asset('lib/assets/splash.json', controller: _controller)
-    );
+        child: Lottie.asset('lib/assets/splash.json', controller: _controller));
   }
 }
