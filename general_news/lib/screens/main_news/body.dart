@@ -72,18 +72,25 @@ class _BodyState extends State<Body> {
                   color: Colors.black,
                   fontSize: 25),
             ),
-            Align(
-              child: Text(
-                item.getLocalizedDate(),
-                style: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    color: Colors.black26,
-                    fontSize: 14),
+            Container(
+              padding: EdgeInsets.only(top: 5, bottom: 5),
+              child: Align(
+                child: Text(
+                  item.getLocalizedDate(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black26,
+                      fontSize: 14),
+                ),
+                alignment: AlignmentDirectional.centerEnd,
               ),
-              alignment: AlignmentDirectional.centerEnd,
             ),
             item.getImage(context),
-            item.getDescription(),
+            Container(
+              padding: EdgeInsets.only(top: 5),
+              decoration: BoxDecoration(),
+              child: item.getDescription(),
+            ),
           ])),
     );
   }

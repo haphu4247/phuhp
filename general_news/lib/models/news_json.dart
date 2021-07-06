@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 class NewsJson {
   late String id;
   late int lastSelected;
   late String name;
-  late String data;
+  late Map<String, String> data;
 
   NewsJson({
     required this.id,
@@ -17,6 +19,6 @@ class NewsJson {
     id = json['id'];
     lastSelected = json['lastSelected'];
     name = json['name'];
-    data = json['data'];
+    data = Map<String, String>.from(json['data']);
   }
 }

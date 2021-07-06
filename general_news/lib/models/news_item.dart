@@ -26,19 +26,22 @@ class NewsItem {
 
   NewsItem.fromRssItem(RssItem rssItem){
     title= (rssItem.title ?? "").trim();
-
-    List<int> codeUnits = title.codeUnits;
-    if (codeUnits.length > 0) {
-      title = utf8.decode(codeUnits);
-    }
-
     date= rssItem.pubDate?.toLocal() ?? DateTime.now();
     link= (rssItem.link ?? "").trim();
 
     description= (rssItem.description ?? "").trim();
-    List<int> codeUnitsDescription = description.codeUnits;
-    if (codeUnits.length > 0) {
-      description = utf8.decode(codeUnitsDescription);
+
+    try {
+      List<int> codeUnits = title.codeUnits;
+      if (codeUnits.length > 0) {
+        title = utf8.decode(codeUnits);
+      }
+      List<int> codeUnitsDescription = description.codeUnits;
+      if (codeUnitsDescription.length > 0) {
+        description = utf8.decode(codeUnitsDescription);
+      }
+    } catch (e) {
+      print('title: ${e.toString()}');
     }
 
     isHtml = hasHTMLTags(description);
