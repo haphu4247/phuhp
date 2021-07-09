@@ -143,5 +143,28 @@
       "Your Week": "https://www.indiatoday.in/rss/1206506",
       "Photos": "https://www.indiatoday.in/rss-gallery"
     }
+  },
+  {
+    "id": "vtc",
+    "name": "VTC News",
+    "lastSelected": 0,
+    "data": {
+      "Trang chủ": "https://vtc.vn/rss/feed.rss",
+      "Thời sự": "https://vtc.vn/rss/thoi-su.rss",
+      "Thế giới": "https://vtc.vn/rss/the-gioi.rss",
+      "Giáo dục": "https://vtc.vn/rss/giao-duc.rss",
+      "Phóng sự - khám phá": "https://vtc.vn/rss/phong-su-kham-pha.rss",
+      "Địa ốc - Bất động sản": "https://vtc.vn/rss/bat-dong-san.rss",
+      "Văn hoá - Giải trí": "https://vtc.vn/rss/van-hoa-giai-tri.rss",
+      "Thế thao": "https://vtc.vn/rss/the-thao.rss",
+      "Doanh nghiệp - Doanh nhân": "https://vtc.vn/rss/doanh-nghiep-doanh-nhan.rss",
+      "Kinh tế": "https://vtc.vn/rss/kinh-te.rss",
+      "Truyền hình": "https://vtc.vn/rss/truyen-hinh.rss",
+      "Pháp Luât": "https://vtc.vn/rss/phap-luat.rss",
+      "Khoa học - Công nghệ": "https://vtc.vn/rss/khoa-hoc-cong-nghe.rss",
+      "Ô tô xe máy": "https://vtc.vn/rss/oto-xe-may.rss",
+      "Sức khoẻ đời sống": "https://vtc.vn/rss/suc-khoe.rss",
+      "Giới trẻ": "https://vtc.vn/rss/gioi-tre.rss"
+    }
   }
 ]

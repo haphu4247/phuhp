@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:general_news/models/news_json.dart';
+import 'package:general_news/repository/db/my_db.dart';
 import 'package:general_news/screens/main_news/main_news.dart';
 import 'package:lottie/lottie.dart';
 
@@ -47,8 +48,16 @@ class _SplashScreenState extends State<SplashScreen>
     newsData = await this.loadJsonData();
   }
 
+  _deleteDatabase() async {
+    var db = MyDB();
+    var database = await db.open();
+    await db.deleteOver30Items(database, false);
+    await database.close();
+  }
+
   @override
   void initState() {
+    _deleteDatabase();
     _fetchNews();
     super.initState();
   }

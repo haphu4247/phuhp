@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:general_news/screens/main_news/main_news.dart';
+import 'package:general_news/screens/setting/history.dart';
+import 'package:general_news/screens/setting/saved.dart';
 import 'package:general_news/screens/splash/splash_screens.dart';
 import 'package:general_news/screens/webview/my_webview.dart';
 
@@ -22,6 +24,8 @@ class MyApp extends StatelessWidget {
     routes[SplashScreen.routeName] = (context) => SplashScreen();
     routes[MainNews.routeName] = (context) => MainNews();
     routes[MyWebView.routeName] = (context) => MyWebView();
+    routes[SavedScreen.routeName] = (context) => SavedScreen();
+    routes[HistoryScreen.routeName] = (context) => HistoryScreen();
     return routes;
   }
 }

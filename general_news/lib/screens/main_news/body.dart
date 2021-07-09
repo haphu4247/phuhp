@@ -1,7 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:general_news/models/args.dart';
 import 'package:general_news/models/news_item.dart';
+import 'package:general_news/repository/db/my_db.dart';
 import 'package:general_news/resources/colors.dart';
+import 'package:general_news/resources/string.dart';
+import 'package:general_news/screens/main_news/item_in_listview.dart';
 import '../webview/my_webview.dart';
 
 class Body extends StatefulWidget {
@@ -14,9 +19,30 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  List<Widget> popupItems = List<Widget>.empty();
+
   @override
   void initState() {
+    _setupPopupItems();
     super.initState();
+  }
+
+  void _setupPopupItems() {
+    popupItems.add(Row(
+      children: [
+        SizedBox(
+          width: 5,
+        ),
+        Icon(Icons.save_alt_rounded, color: Colors.blue),
+        SizedBox(
+          width: 5,
+        ),
+        Text(kSave, style: TextStyle(color: Colors.blue, fontSize: 14)),
+        SizedBox(
+          width: 45,
+        )
+      ],
+    ));
   }
 
   @override
@@ -32,7 +58,7 @@ class _BodyState extends State<Body> {
                 padding:
                     EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                 itemBuilder: (context, index) {
-                  return _buildItem(context, widget.news[index]);
+                  return buildItemInListView(context, popupItems, widget.news[index], ActionForItemType.Home, null);
                 },
                 itemCount: widget.news.length,
                 separatorBuilder: (BuildContext context, int index) {
@@ -43,55 +69,24 @@ class _BodyState extends State<Body> {
                 },
               )
             : Center(
-                child: Text(
-                  'Sorry! Service Unavailable.',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.face_retouching_natural,
+                      size: 100,
+                      color: Colors.blue,
+                    ),
+                    Text(
+                      'Sorry! Service Unavailable.',
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500),
+                    )
+                  ],
                 ),
               ));
-  }
-
-  Widget _buildItem(BuildContext context, NewsItem item) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, MyWebView.routeName,
-            arguments: Args(link: item.link));
-      },
-      child: Container(
-          padding: EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
-          decoration: BoxDecoration(
-            color: Colors.white,
-          ),
-          child: Column(children: [
-            Text(
-              item.title,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontSize: 25),
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 5, bottom: 5),
-              child: Align(
-                child: Text(
-                  item.getLocalizedDate(),
-                  style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black26,
-                      fontSize: 14),
-                ),
-                alignment: AlignmentDirectional.centerEnd,
-              ),
-            ),
-            item.getImage(context),
-            Container(
-              padding: EdgeInsets.only(top: 5),
-              decoration: BoxDecoration(),
-              child: item.getDescription(),
-            ),
-          ])),
-    );
   }
 }

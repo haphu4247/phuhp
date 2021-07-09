@@ -6,6 +6,14 @@ import 'package:general_news/utils/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:webfeed/webfeed.dart';
 
+final String tableSavedNewsItem = 'saved_news';
+final String tableNewsItem = 'news';
+final String columnTitle = 'title';
+final String columnDescription = 'description';
+final String columnDate = 'date';
+final String columnLink = 'link';
+final String columnImgUrl = 'imgUrl';
+final String columnIsHtml= 'isHtml';
 class NewsItem {
   final int maxBits = 128;
 
@@ -23,6 +31,27 @@ class NewsItem {
     this.date,
     this.link,
   );
+
+  Map<String, Object?> toMap() {
+    var map = <String, Object?>{
+      columnTitle: title,
+      columnDescription: description,
+      columnImgUrl: imgUrl,
+      columnDate: date.millisecondsSinceEpoch,
+      columnLink: link,
+      columnIsHtml: isHtml ? 1 : 0
+    };
+    return map;
+  }
+
+  NewsItem.fromMap(Map<String, Object?> map) {
+    title = map[columnTitle] as String;
+    description = map[columnDescription] as String;
+    imgUrl = map[columnImgUrl] as String?;
+    date = DateTime.fromMillisecondsSinceEpoch((map[columnDate] as int));
+    link = map[columnLink] as String;
+    isHtml = (map[columnIsHtml] as int) == 0 ? false : true;
+  }
 
   NewsItem.fromRssItem(RssItem rssItem){
     title= (rssItem.title ?? "").trim();
