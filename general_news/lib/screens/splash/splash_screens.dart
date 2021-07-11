@@ -52,6 +52,7 @@ class _SplashScreenState extends State<SplashScreen>
     var db = MyDB();
     var database = await db.open();
     await db.deleteOver30Items(database, false);
+    // await db.deleteOver30Items(database, true);
     await database.close();
   }
 

@@ -4,6 +4,7 @@ import 'package:general_news/models/news_item.dart';
 import 'package:general_news/repository/db/my_db.dart';
 import 'package:general_news/resources/colors.dart';
 import 'package:general_news/resources/string.dart';
+import 'package:general_news/screens/main_news/item_in_listview.dart';
 import 'package:general_news/screens/webview/my_webview.dart';
 
 class SavedScreen extends StatefulWidget {
@@ -16,14 +17,29 @@ class SavedScreen extends StatefulWidget {
 }
 
 class _SavedScreenState extends State<SavedScreen> {
+  List<Widget> popupItems = [];
+
   @override
   void initState() {
+    _setupPopupItems();
     super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void _setupPopupItems() {
+    popupItems.add(Row(
+      children: [
+        Icon(Icons.delete, color: Colors.blue),
+        SizedBox(
+          width: 5,
+        ),
+        Text(kRemove, style: TextStyle(color: Colors.blue, fontSize: 14)),
+      ],
+    ));
   }
 
   @override
@@ -74,7 +90,7 @@ class _SavedScreenState extends State<SavedScreen> {
                 padding:
                     EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                 itemBuilder: (context, index) {
-                  return _buildItem(context, news[index]);
+                  return buildItemInListView(context, popupItems, news[index], ActionForItemType.Saved, (){ });
                 },
                 itemCount: news.length,
                 separatorBuilder: (BuildContext context, int index) {
@@ -95,7 +111,7 @@ class _SavedScreenState extends State<SavedScreen> {
                       color: Colors.blue,
                     ),
                     Text(
-                      'Sorry! Service Unavailable.',
+                      'No Saved Post',
                       style: TextStyle(
                           color: Colors.blue,
                           fontSize: 20,

@@ -27,3 +27,9 @@ subprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+dependencies {
+    // ... other dependencies
+    classpath 'com.google.gms:google-services:4.3.5'
+    classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.1'
+}

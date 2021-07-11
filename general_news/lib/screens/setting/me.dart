@@ -18,7 +18,7 @@ class MeScreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 15,
+              height: 10,
             ),
             Icon(
               Icons.tag_faces,
@@ -26,12 +26,19 @@ class MeScreen extends StatelessWidget {
               color: Colors.white,
             ),
             Spacer(),
-            Text(
-              kWelcome,
+            Text(kWelcome,
               style: TextStyle(
                   fontSize: 20,
                   color: Colors.white,
                   fontWeight: FontWeight.w600),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              kWelcomeDescription,
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w300, fontStyle: FontStyle.italic),
               textAlign: TextAlign.center,
             ),
             Spacer(),
@@ -41,7 +48,7 @@ class MeScreen extends StatelessWidget {
                     color: Colors.white,
                     fontWeight: FontWeight.w600)),
             SizedBox(
-              height: 15,
+              height: 5,
             ),
             Text('$kBuildNumber $buildNumber',
                 style: TextStyle(

@@ -24,17 +24,17 @@ class MyDB {
     return insertedAt;
   }
 
-  delete(Database database, NewsItem item, bool isSaved) async {
+  delete(Database database, NewsItem item, bool isSaveTable) async {
     String link = item.link;
     print('link:$link');
-    return await database.delete(tableNewsItem, where: '$columnLink=$link');
+    return await database.delete(isSaveTable ? tableSavedNewsItem : tableNewsItem, where: '$columnLink=$link');
   }
 
-  deleteOver30Items(Database database, bool isSaved) async {
-    var queryTable = await database.query(tableNewsItem);
+  deleteOver30Items(Database database, bool isSaveTable) async {
+    var queryTable = await database.query(isSaveTable ? tableSavedNewsItem : tableNewsItem);
     if (queryTable.length > 30) {
       for(int i = 0; i < queryTable.length-30; i++){
-        await delete(database, NewsItem.fromMap(queryTable[i]), isSaved);
+        await delete(database, NewsItem.fromMap(queryTable[i]), isSaveTable);
       }
     }
   }

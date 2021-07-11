@@ -95,7 +95,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       color: Colors.blue,
                     ),
                     Text(
-                      'Sorry! Service Unavailable.',
+                      'No Posts Available.',
                       style: TextStyle(
                           color: Colors.blue,
                           fontSize: 20,

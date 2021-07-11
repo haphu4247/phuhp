@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:general_news/models/all_news_enums.dart';
 import 'package:general_news/models/news_item.dart';
 import 'package:general_news/models/news_json.dart';
 import 'package:general_news/repository/service/news_feed_service.dart';
+import 'package:general_news/resources/colors.dart';
 import 'package:general_news/resources/string.dart';
-import 'dart:convert';
-import 'package:general_news/screens/main_news/body.dart';
 import 'package:general_news/screens/main_news/bottombar_item.dart';
+import 'package:general_news/screens/main_news/item_in_listview.dart';
 import 'package:general_news/screens/setting/history.dart';
 import 'package:general_news/screens/setting/me.dart';
 import 'package:general_news/screens/setting/saved.dart';
@@ -24,6 +23,9 @@ class MainNews extends StatefulWidget {
 
 class _MainNewsState extends State<MainNews> {
   List<NewsItem> news = [];
+
+  List<Widget> popupItems = [];
+
   String appbarTitle = "General News";
 
   Map<String, String> currentJsonNews = Map<String, String>();
@@ -34,6 +36,7 @@ class _MainNewsState extends State<MainNews> {
 
   @override
   void initState() {
+    _setupPopupItems();
     super.initState();
   }
 
@@ -63,10 +66,63 @@ class _MainNewsState extends State<MainNews> {
       drawer: _drawer(context),
       endDrawer: _endDrawer(context),
       body: LoaderOverlay(
-        child: Body(news: news),
+        child: _buildBody(),
       ),
       bottomNavigationBar: _bottomBar(context),
     );
+  }
+
+  void _setupPopupItems() {
+    popupItems.add(Row(
+      children: [
+        Icon(Icons.save_alt_rounded, color: Colors.blue),
+        SizedBox(
+          width: 5,
+        ),
+        Text(kSave, style: TextStyle(color: Colors.blue, fontSize: 14)),
+      ],
+    ));
+  }
+
+  Widget _buildBody() {
+    return Container(
+        decoration: BoxDecoration(color: backgroundGray),
+        child: news.length > 0
+            ? ListView.separated(
+                padding:
+                    EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                itemBuilder: (context, index) {
+                  return buildItemInListView(context, popupItems, news[index],
+                      ActionForItemType.Home, null);
+                },
+                itemCount: news.length,
+                separatorBuilder: (BuildContext context, int index) {
+                  return Container(
+                    height: 10,
+                    color: backgroundGray,
+                  );
+                },
+              )
+            : Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.face_retouching_natural,
+                      size: 100,
+                      color: Colors.blue,
+                    ),
+                    Text(
+                      'Sorry! Service Unavailable.',
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500),
+                    )
+                  ],
+                ),
+              ));
   }
 
   Widget _drawer(BuildContext context) {
@@ -118,7 +174,10 @@ class _MainNewsState extends State<MainNews> {
               SizedBox(
                 width: 5,
               ),
-              Icon(Icons.home_filled, color: Colors.blue,),
+              Icon(
+                Icons.home_filled,
+                color: Colors.blue,
+              ),
               SizedBox(
                 width: 5,
               ),
@@ -192,8 +251,7 @@ class _MainNewsState extends State<MainNews> {
               SizedBox(
                 width: 5,
               ),
-              Text(kHistory,
-                  style: TextStyle(color: Colors.blue, fontSize: 14))
+              Text(kHistory, style: TextStyle(color: Colors.blue, fontSize: 14))
             ],
           )),
     );
@@ -227,8 +285,9 @@ class _MainNewsState extends State<MainNews> {
   _fetchNews(String title, String url, BuildContext myContext) async {
     try {
       context.loaderOverlay.show();
-    } on Exception catch (e) {} finally {
-      // myContext.showCirclarProgress();
+    } on Exception catch (e) {
+      print('_fetchNews: ${e.toString()}');
+    } finally {
       print("title:$title url:$url");
       var data = NewsFeedService();
       var result = await data.fetchData(url);
@@ -237,9 +296,8 @@ class _MainNewsState extends State<MainNews> {
       setState(() {
         appbarTitle = title;
         news = result;
-        context.loaderOverlay.hide();
-        // myContext.hideCirclarProgress(myContext);
       });
+      context.loaderOverlay.hide();
     }
   }
 
@@ -266,7 +324,7 @@ class _MainNewsState extends State<MainNews> {
       decoration: BoxDecoration(color: Colors.blue),
       child: ListView(
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.only(left: 15, right: 15),
         children: bottomItem,
       ),
     );

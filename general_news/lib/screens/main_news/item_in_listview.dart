@@ -5,11 +5,10 @@ import 'package:general_news/models/news_item.dart';
 import 'package:general_news/repository/db/my_db.dart';
 import 'package:general_news/screens/webview/my_webview.dart';
 
-enum ActionForItemType {
-  Home, Saved, History
-}
+enum ActionForItemType { Home, Saved, History }
 
-Widget buildItemInListView(BuildContext context, List<Widget> popupItems, NewsItem item, ActionForItemType type, VoidCallback? onRemoved) {
+Widget buildItemInListView(BuildContext context, List<Widget> popupItems,
+    NewsItem item, ActionForItemType type, VoidCallback? onRemoved) {
   return GestureDetector(
     onTap: () {
       switch (type) {
@@ -27,7 +26,6 @@ Widget buildItemInListView(BuildContext context, List<Widget> popupItems, NewsIt
               arguments: Args(link: item.link));
           break;
       }
-
     },
     onDoubleTap: () {
       print('onDoubleTap');
@@ -72,27 +70,29 @@ Widget buildItemInListView(BuildContext context, List<Widget> popupItems, NewsIt
               right: -8,
               child: PopupMenuButton(
                 itemBuilder: (context) {
-                  return popupItems.map((e) {
-                    return PopupMenuItem(
-                        child: IconButton(onPressed: (){
-                          switch (type) {
-                            case ActionForItemType.Home:
-                              _insertDataToDB(item, true);
-                              break;
-                            case ActionForItemType.Saved:
-                              onRemoved!();
-                              break;
-                            case ActionForItemType.History:
-                              break;
-                          }
-                        }, icon: e));
+                  return popupItems.map((childView) {
+                    return PopupMenuItem<NewsItem>(
+                      value: item, child: childView);
                   }).toList();
                 },
                 child: SvgPicture.asset(
                   'lib/assets/more.svg',
-                  width: 22,
+                  width: 28,
                   height: 22,
                 ),
+                onSelected: (model) {
+                  switch (type) {
+                    case ActionForItemType.Home:
+                      _insertDataToDB(item, true);
+                      break;
+                    case ActionForItemType.Saved:
+                      // onRemoved!();
+                      _deleteRecord(item, true);
+                      break;
+                    case ActionForItemType.History:
+                      break;
+                  }
+                },
               ),
             )
           ],
@@ -104,5 +104,12 @@ _insertDataToDB(NewsItem item, bool isSaveTable) async {
   var db = MyDB();
   var database = await db.open();
   int valueInserted = await db.insert(database, item, isSaveTable);
+  print('valueInserted:$valueInserted');
+}
+
+_deleteRecord(NewsItem item, bool isSaveTable) async {
+  var db = MyDB();
+  var database = await db.open();
+  int valueInserted = await db.delete(database, item, isSaveTable);
   print('valueInserted:$valueInserted');
 }

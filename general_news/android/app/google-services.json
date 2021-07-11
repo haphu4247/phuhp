@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "44572228995",
+    "project_id": "generalnews-4cb69",
+    "storage_bucket": "generalnews-4cb69.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44572228995:android:94235472ab765a9d904ab6",
+        "android_client_info": {
+          "package_name": "com.phuhp.generalnews.general_news"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44572228995-2575vcnie10bvmeb68pp96p92jihu0pq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU8KND5rnvyYJh3q0GiFavlC7Am92J0aY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44572228995-2575vcnie10bvmeb68pp96p92jihu0pq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
