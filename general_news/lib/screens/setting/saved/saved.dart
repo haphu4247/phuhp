@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:general_news/mainSetting.dart';
 import 'package:general_news/models/args.dart';
 import 'package:general_news/models/news_item.dart';
 import 'package:general_news/repository/db/my_db.dart';
 import 'package:general_news/resources/colors.dart';
 import 'package:general_news/resources/string.dart';
+import 'package:general_news/screens/main_news/components/item_in_listview.dart';
+import 'package:general_news/screens/setting/saved/saved_controller.dart';
 import 'package:general_news/screens/webview/my_webview.dart';
+import 'package:get/get.dart';
 
-class HistoryScreen extends StatefulWidget {
-  static String routeName = "/HistoryScreen";
+class SavedScreen extends GetView<SavedController> {
+  List<Widget> popupItems = [];
 
-  const HistoryScreen({Key? key}) : super(key: key);
-
-  @override
-  _HistoryScreenState createState() => _HistoryScreenState();
-}
-
-class _HistoryScreenState extends State<HistoryScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
+  void _setupPopupItems() {
+    popupItems.add(Row(
+      children: [
+        Icon(Icons.delete, color: Colors.blue),
+        SizedBox(
+          width: 5,
+        ),
+        Text(kRemove, style: TextStyle(color: Colors.blue, fontSize: 14)),
+      ],
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
+    _setupPopupItems();
     return Scaffold(
       body: _buildBody(context),
       appBar: AppBar(
@@ -63,7 +63,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     var db = MyDB();
     var openDB = await db.open();
     print('openDb: ${openDB.isOpen}');
-    return db.fetchNews(openDB, false);
+    return db.fetchNews(openDB, true);
   }
 
   Widget _buildListNews(List<NewsItem> news) {
@@ -74,7 +74,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 padding:
                     EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                 itemBuilder: (context, index) {
-                  return _buildItem(context, news[index]);
+                  return buildItemInListView(context, popupItems, news[index], ActionForItemType.Saved, (){ });
                 },
                 itemCount: news.length,
                 separatorBuilder: (BuildContext context, int index) {
@@ -95,7 +95,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       color: Colors.blue,
                     ),
                     Text(
-                      'No Posts Available.',
+                      'No Saved Post',
                       style: TextStyle(
                           color: Colors.blue,
                           fontSize: 20,
@@ -109,8 +109,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget _buildItem(BuildContext context, NewsItem item) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, MyWebView.routeName,
-            arguments: Args(link: item.link));
+        // Navigator.pushNamed(context, MyWebView.routeName, arguments: Args(link: item.link));
+        Get.toNamed(myWebView, arguments: Args(link: item.link));
       },
       onDoubleTap: () {
         print('onDoubleTap');

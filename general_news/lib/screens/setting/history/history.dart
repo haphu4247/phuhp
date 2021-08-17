@@ -1,46 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:general_news/mainSetting.dart';
 import 'package:general_news/models/args.dart';
 import 'package:general_news/models/news_item.dart';
 import 'package:general_news/repository/db/my_db.dart';
 import 'package:general_news/resources/colors.dart';
 import 'package:general_news/resources/string.dart';
-import 'package:general_news/screens/main_news/item_in_listview.dart';
+import 'package:general_news/screens/setting/history/history_controller.dart';
 import 'package:general_news/screens/webview/my_webview.dart';
+import 'package:get/get.dart';
 
-class SavedScreen extends StatefulWidget {
-  static String routeName = "/SavedScreen";
-
-  const SavedScreen({Key? key}) : super(key: key);
-
-  @override
-  _SavedScreenState createState() => _SavedScreenState();
-}
-
-class _SavedScreenState extends State<SavedScreen> {
-  List<Widget> popupItems = [];
-
-  @override
-  void initState() {
-    _setupPopupItems();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  void _setupPopupItems() {
-    popupItems.add(Row(
-      children: [
-        Icon(Icons.delete, color: Colors.blue),
-        SizedBox(
-          width: 5,
-        ),
-        Text(kRemove, style: TextStyle(color: Colors.blue, fontSize: 14)),
-      ],
-    ));
-  }
+class HistoryScreen extends GetView<HistoryController> {
 
   @override
   Widget build(BuildContext context) {
@@ -79,28 +48,20 @@ class _SavedScreenState extends State<SavedScreen> {
     var db = MyDB();
     var openDB = await db.open();
     print('openDb: ${openDB.isOpen}');
-    return db.fetchNews(openDB, true);
+    return db.fetchNews(openDB, false);
   }
 
   Widget _buildListNews(List<NewsItem> news) {
     return Container(
         decoration: BoxDecoration(color: backgroundGray),
-        child: news.length > 0
-            ? ListView.separated(
-                padding:
-                    EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
-                itemBuilder: (context, index) {
-                  return buildItemInListView(context, popupItems, news[index], ActionForItemType.Saved, (){ });
-                },
-                itemCount: news.length,
-                separatorBuilder: (BuildContext context, int index) {
-                  return Container(
-                    height: 10,
-                    color: backgroundGray,
-                  );
-                },
-              )
-            : Center(
+        child: ListView.separated(
+          padding:
+          EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+          itemBuilder: (context, index) {
+            if (news.length > 0) {
+              return _buildItem(context, news[index]);
+            } else {
+              return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -111,7 +72,7 @@ class _SavedScreenState extends State<SavedScreen> {
                       color: Colors.blue,
                     ),
                     Text(
-                      'No Saved Post',
+                      'No Posts Available.',
                       style: TextStyle(
                           color: Colors.blue,
                           fontSize: 20,
@@ -119,14 +80,24 @@ class _SavedScreenState extends State<SavedScreen> {
                     )
                   ],
                 ),
-              ));
+              );
+            }
+          },
+          itemCount: news.length,
+          separatorBuilder: (BuildContext context, int index) {
+            return Container(
+              height: 10,
+              color: backgroundGray,
+            );
+          },
+        ));
   }
 
   Widget _buildItem(BuildContext context, NewsItem item) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, MyWebView.routeName,
-            arguments: Args(link: item.link));
+        // Navigator.pushNamed(context, MyWebView.routeName, arguments: Args(link: item.link));
+        Get.toNamed(myWebView, arguments: Args(link: item.link));
       },
       onDoubleTap: () {
         print('onDoubleTap');

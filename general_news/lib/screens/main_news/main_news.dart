@@ -1,58 +1,43 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:general_news/mainSetting.dart';
 import 'package:general_news/models/news_item.dart';
 import 'package:general_news/models/news_json.dart';
 import 'package:general_news/repository/service/news_feed_service.dart';
 import 'package:general_news/resources/colors.dart';
 import 'package:general_news/resources/string.dart';
-import 'package:general_news/screens/main_news/bottombar_item.dart';
-import 'package:general_news/screens/main_news/item_in_listview.dart';
-import 'package:general_news/screens/setting/history.dart';
-import 'package:general_news/screens/setting/me.dart';
-import 'package:general_news/screens/setting/saved.dart';
+import 'package:general_news/screens/main_news/components/bottombar_item.dart';
+import 'package:general_news/screens/main_news/components/item_in_listview.dart';
+import 'package:general_news/screens/setting/history/history.dart';
+import 'package:general_news/screens/setting/me/me.dart';
+import 'package:general_news/screens/setting/saved/saved.dart';
+import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:general_news/extension/context.dart';
 import 'package:package_info/package_info.dart';
 
-class MainNews extends StatefulWidget {
-  static String routeName = "/MainNews";
+import 'main_controller.dart';
 
-  @override
-  _MainNewsState createState() => _MainNewsState();
-}
-
-class _MainNewsState extends State<MainNews> {
-  List<NewsItem> news = [];
-
+class MainNews extends GetView<MainNewsController> {
   List<Widget> popupItems = [];
-
-  String appbarTitle = "General News";
-
-  Map<String, String> currentJsonNews = Map<String, String>();
-
-  bool fetchFirstNew = true;
-
-  List<NewsJson>? newsData;
-
-  @override
-  void initState() {
-    _setupPopupItems();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
-    if (newsData == null) {
-      newsData = ModalRoute.of(context)!.settings.arguments as List<NewsJson>;
-      currentJsonNews = newsData!.first.data;
+    _setupPopupItems();
+
+    if (controller.newsData.isEmpty) {
+      var json = ModalRoute.of(context)!.settings.arguments as List<NewsJson>;
+      print('data: $json');
+      controller.newsData.addAll(json);
+      controller.currentJsonNews.value = controller.newsData.first.data;
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text(appbarTitle,
+        title: Obx(() => Text(controller.appbarTitle.value,
             style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
-                fontWeight: FontWeight.w700)),
+                fontWeight: FontWeight.w700))),
         actions: [
           Builder(
             builder: (context) => IconButton(
@@ -68,7 +53,7 @@ class _MainNewsState extends State<MainNews> {
       body: LoaderOverlay(
         child: _buildBody(),
       ),
-      bottomNavigationBar: _bottomBar(context),
+      bottomNavigationBar: _bottomBar(),
     );
   }
 
@@ -87,15 +72,19 @@ class _MainNewsState extends State<MainNews> {
   Widget _buildBody() {
     return Container(
         decoration: BoxDecoration(color: backgroundGray),
-        child: news.length > 0
-            ? ListView.separated(
+        child: Obx(() => ListView.separated(
                 padding:
                     EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+
                 itemBuilder: (context, index) {
-                  return buildItemInListView(context, popupItems, news[index],
-                      ActionForItemType.Home, null);
+                  if (controller.news.length == 1) {
+                    return emptyDataWidget();
+                  } else {
+                    return buildItemInListView(context, popupItems,
+                        controller.news[index], ActionForItemType.Home, null);
+                  }
                 },
-                itemCount: news.length,
+                itemCount: controller.news.length,
                 separatorBuilder: (BuildContext context, int index) {
                   return Container(
                     height: 10,
@@ -103,26 +92,8 @@ class _MainNewsState extends State<MainNews> {
                   );
                 },
               )
-            : Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.face_retouching_natural,
-                      size: 100,
-                      color: Colors.blue,
-                    ),
-                    Text(
-                      'Sorry! Service Unavailable.',
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500),
-                    )
-                  ],
-                ),
-              ));
+        )
+    );
   }
 
   Widget _drawer(BuildContext context) {
@@ -140,13 +111,13 @@ class _MainNewsState extends State<MainNews> {
         ));
     view.add(header);
 
-    newsData?.forEach((element) {
+    controller.newsData.forEach((element) {
       var item = ListTile(
         contentPadding: EdgeInsets.only(left: 15, bottom: 5, right: 5, top: 5),
         title: Text(element.name),
         onTap: () {
           Navigator.pop(context);
-          _fetchSelectedPost(element, context);
+          controller.fetchSelectedPost(element);
         },
       );
       view.add(item);
@@ -220,7 +191,8 @@ class _MainNewsState extends State<MainNews> {
       height: 56,
       child: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, SavedScreen.routeName);
+            // Navigator.pushNamed(context, SavedScreen.routeName);
+            Get.toNamed(savedScreen);
           },
           icon: Row(
             children: [
@@ -240,7 +212,8 @@ class _MainNewsState extends State<MainNews> {
       height: 56,
       child: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, HistoryScreen.routeName);
+            // Navigator.pushNamed(context, HistoryScreen.routeName);
+            Get.toNamed(historyScreen);
           },
           icon: Row(
             children: [
@@ -268,64 +241,52 @@ class _MainNewsState extends State<MainNews> {
     );
   }
 
-  _fetchSelectedPost(NewsJson news, BuildContext buildContext) {
-    // buildContext.showCirclarProgress();
-    buildContext.loaderOverlay.show();
-    Map<String, String> json = news.data;
-
-    fetchFirstNew = true;
-    setState(() {
-      currentJsonNews = json;
-    });
-
-    // buildContext.hideCirclarProgress(buildContext);
-    buildContext.loaderOverlay.hide();
-  }
-
-  _fetchNews(String title, String url, BuildContext myContext) async {
-    try {
-      context.loaderOverlay.show();
-    } on Exception catch (e) {
-      print('_fetchNews: ${e.toString()}');
-    } finally {
-      print("title:$title url:$url");
-      var data = NewsFeedService();
-      var result = await data.fetchData(url);
-      print("result: ${result.toString()}");
-
-      setState(() {
-        appbarTitle = title;
-        news = result;
-      });
-      context.loaderOverlay.hide();
-    }
-  }
-
-  Widget _bottomBar(BuildContext context) {
-    List<BottomBarItem> bottomItem = [];
-    currentJsonNews.forEach((key, value) {
-      var model = BottomBarModel(title: key, url: value);
-      var view = BottomBarItem(
-          data: model,
-          onTap: () {
-            model.isSelected = true;
-            _fetchNews(model.title, model.url, context);
-          });
-
-      if (fetchFirstNew) {
-        fetchFirstNew = false;
-        _fetchNews(model.title, model.url, context);
-      }
-
-      bottomItem.add(view);
-    });
+  Widget _bottomBar() {
+    // List<BottomBarItem> bottomItem = [];
+    // controller.currentJsonNews.forEach((key, value) {
+    //   var model = BottomBarModel(title: key, url: value);
+    //   var view = BottomBarItem(
+    //       data: model,
+    //       onTap: () {
+    //         model.isSelected = true;
+    //         controller.fetchNews(model.title, model.url);
+    //       });
+    //
+    //   if (controller.fetchFirstNew) {
+    //     controller.fetchFirstNew = false;
+    //     controller.fetchNews(model.title, model.url);
+    //   }
+    //
+    //   bottomItem.add(view);
+    // });
     return Container(
       height: 56,
       decoration: BoxDecoration(color: Colors.blue),
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.only(left: 15, right: 15),
-        children: bottomItem,
+      child: Obx(
+        ()=> ListView.separated(
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.only(left: 15, right: 15),
+          itemCount: controller.currentJsonNews.length,
+          itemBuilder: (context, index){
+            var key = controller.currentJsonNews.keys.elementAt(index);
+            var value = controller.currentJsonNews.value[key] ?? '';
+            var model = BottomBarModel(title: key, url: value);
+            var view = BottomBarItem(
+                data: model,
+                onTap: () {
+                  model.isSelected = true;
+                  controller.fetchNews(model.title, model.url);
+                });
+
+            if (controller.fetchFirstNew) {
+              controller.fetchFirstNew = false;
+              controller.fetchNews(model.title, model.url);
+            }
+            return view;
+          }, separatorBuilder: (context, index) {
+            return Divider();
+        },
+        ),
       ),
     );
   }

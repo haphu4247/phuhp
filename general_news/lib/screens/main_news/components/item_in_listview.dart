@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:general_news/mainSetting.dart';
 import 'package:general_news/models/args.dart';
 import 'package:general_news/models/news_item.dart';
 import 'package:general_news/repository/db/my_db.dart';
 import 'package:general_news/screens/webview/my_webview.dart';
+import 'package:get/get.dart';
 
 enum ActionForItemType { Home, Saved, History }
-
 Widget buildItemInListView(BuildContext context, List<Widget> popupItems,
     NewsItem item, ActionForItemType type, VoidCallback? onRemoved) {
   return GestureDetector(
@@ -14,16 +15,16 @@ Widget buildItemInListView(BuildContext context, List<Widget> popupItems,
       switch (type) {
         case ActionForItemType.Home:
           _insertDataToDB(item, false);
-          Navigator.pushNamed(context, MyWebView.routeName,
-              arguments: Args(link: item.link));
+          // Navigator.pushNamed(context, MyWebView.routeName, arguments: Args(link: item.link));
+          Get.toNamed(myWebView, arguments: Args(link: item.link));
           break;
         case ActionForItemType.Saved:
-          Navigator.pushNamed(context, MyWebView.routeName,
-              arguments: Args(link: item.link));
+          // Navigator.pushNamed(context, MyWebView.routeName, arguments: Args(link: item.link));
+          Get.toNamed(myWebView, arguments: Args(link: item.link));
           break;
         case ActionForItemType.History:
-          Navigator.pushNamed(context, MyWebView.routeName,
-              arguments: Args(link: item.link));
+          // Navigator.pushNamed(context, MyWebView.routeName, arguments: Args(link: item.link));
+          Get.toNamed(myWebView, arguments: Args(link: item.link));
           break;
       }
     },
@@ -34,6 +35,7 @@ Widget buildItemInListView(BuildContext context, List<Widget> popupItems,
         padding: EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
         decoration: BoxDecoration(
           color: Colors.white,
+          borderRadius: BorderRadius.circular(8)
         ),
         child: Stack(
           children: [
@@ -96,7 +98,31 @@ Widget buildItemInListView(BuildContext context, List<Widget> popupItems,
               ),
             )
           ],
-        )),
+        )
+    ),
+  );
+}
+
+Widget emptyDataWidget(){
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.face_retouching_natural,
+          size: 100,
+          color: Colors.blue,
+        ),
+        Text(
+          'Sorry! Service Unavailable.',
+          style: TextStyle(
+              color: Colors.blue,
+              fontSize: 20,
+              fontWeight: FontWeight.w500),
+        )
+      ],
+    ),
   );
 }
 

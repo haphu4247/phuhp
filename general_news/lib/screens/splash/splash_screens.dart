@@ -5,17 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:general_news/models/news_json.dart';
 import 'package:general_news/repository/db/my_db.dart';
 import 'package:general_news/screens/main_news/main_news.dart';
+import 'package:general_news/screens/splash/splash_controller.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-class SplashScreen extends StatefulWidget {
-  static String routeName = "/SplashScreen";
+import '../../mainSetting.dart';
 
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen>
-    with TickerProviderStateMixin {
+class SplashScreen extends GetView<SplashController>{
   late final AnimationController _controller;
   var duration = Duration(milliseconds: 6000);
 
@@ -32,42 +28,6 @@ class _SplashScreenState extends State<SplashScreen>
       fontSize: 45.0,
       fontWeight: FontWeight.bold,
       backgroundColor: Colors.blue);
-
-  List<NewsJson>? newsData;
-
-  Future<List<NewsJson>> loadJsonData() async {
-    var jsonText =
-        await DefaultAssetBundle.of(context).loadString('lib/assets/news.json');
-    var result = List<Map<String, dynamic>>.from(jsonDecode(jsonText));
-    List<NewsJson> newsjson = result.map((e) => NewsJson.fromJson(e)).toList();
-    // newsjson.sort();
-    return newsjson;
-  }
-
-  _fetchNews() async {
-    newsData = await this.loadJsonData();
-  }
-
-  _deleteDatabase() async {
-    var db = MyDB();
-    var database = await db.open();
-    await db.deleteOver30Items(database, false);
-    // await db.deleteOver30Items(database, true);
-    await database.close();
-  }
-
-  @override
-  void initState() {
-    _deleteDatabase();
-    _fetchNews();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    // _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,11 +68,13 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   onFinished() async {
-    if (newsData == null) {
-      newsData = await this.loadJsonData();
+    if (controller.newsData == null) {
+      controller.newsData = await controller.loadJsonData();
     }
-    Navigator.pushReplacementNamed(context, MainNews.routeName,
-        arguments: newsData);
+    // Navigator.pushReplacementNamed(context, MainNews.routeName,
+    //     arguments: newsData);
+    print('splash: data: ${controller.newsData}');
+    Get.offNamed(mainNews, arguments: controller.newsData);
   }
 
   Container lottieAnimation() {

@@ -44,6 +44,9 @@ class NewsItem {
     return map;
   }
 
+  NewsItem.empty(){
+  }
+
   NewsItem.fromMap(Map<String, Object?> map) {
     title = map[columnTitle] as String;
     description = map[columnDescription] as String;
