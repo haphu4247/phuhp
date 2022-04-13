@@ -96,7 +96,6 @@ class HistoryScreen extends GetView<HistoryController> {
   Widget _buildItem(BuildContext context, NewsItem item) {
     return GestureDetector(
       onTap: () {
-        // Navigator.pushNamed(context, MyWebView.routeName, arguments: Args(link: item.link));
         Get.toNamed(myWebView, arguments: Args(link: item.link));
       },
       onDoubleTap: () {

@@ -37,7 +37,7 @@ class SavedScreen extends GetView<SavedController> {
                 fontSize: 20,
                 fontWeight: FontWeight.w700)),
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Get.back(),
           icon: Icon(Icons.arrow_back_ios_new_outlined),
         ),
       ),
@@ -74,7 +74,14 @@ class SavedScreen extends GetView<SavedController> {
                 padding:
                     EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                 itemBuilder: (context, index) {
-                  return buildItemInListView(context, popupItems, news[index], ActionForItemType.Saved, (){ });
+                  var model = ItemInListNews();
+                  return model.buildItemInListView(
+                      context, popupItems, news[index], ActionForItemType.Saved,
+                      (NewsItem var1, ActionForItemType var2) {
+                    Get.toNamed(myWebView, arguments: Args(link: var1.link));
+                  }, (NewsItem var1, ActionForItemType var2) {
+                    model.deleteRecord(var1, true);
+                  });
                 },
                 itemCount: news.length,
                 separatorBuilder: (BuildContext context, int index) {

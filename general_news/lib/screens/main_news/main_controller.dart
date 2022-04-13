@@ -29,13 +29,9 @@ class MainNewsController extends GetxController {
   }
 
   fetchSelectedPost(NewsJson news) {
-    // buildContext.showCirclarProgress();
-    // buildContext.loaderOverlay.show();
     Map<String, String> json = news.data;
     print(json);
     fetchFirstNew = true;
     currentJsonNews.value = json;
-    // buildContext.hideCirclarProgress(buildContext);
-    // buildContext.loaderOverlay.hide();
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:general_news/mainSetting.dart';
+import 'package:general_news/models/args.dart';
 import 'package:general_news/models/news_item.dart';
 import 'package:general_news/models/news_json.dart';
 import 'package:general_news/repository/service/news_feed_service.dart';
@@ -12,7 +13,6 @@ import 'package:general_news/screens/setting/history/history.dart';
 import 'package:general_news/screens/setting/me/me.dart';
 import 'package:general_news/screens/setting/saved/saved.dart';
 import 'package:get/get.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 import 'package:general_news/extension/context.dart';
 import 'package:package_info/package_info.dart';
 
@@ -50,9 +50,7 @@ class MainNews extends GetView<MainNewsController> {
       ),
       drawer: _drawer(context),
       endDrawer: _endDrawer(context),
-      body: LoaderOverlay(
-        child: _buildBody(),
-      ),
+      body: _buildBody(),
       bottomNavigationBar: _bottomBar(),
     );
   }
@@ -73,27 +71,35 @@ class MainNews extends GetView<MainNewsController> {
     return Container(
         decoration: BoxDecoration(color: backgroundGray),
         child: Obx(() => ListView.separated(
-                padding:
-                    EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
-
-                itemBuilder: (context, index) {
-                  if (controller.news.length == 1) {
-                    return emptyDataWidget();
-                  } else {
-                    return buildItemInListView(context, popupItems,
-                        controller.news[index], ActionForItemType.Home, null);
-                  }
-                },
-                itemCount: controller.news.length,
-                separatorBuilder: (BuildContext context, int index) {
-                  return Container(
-                    height: 10,
-                    color: backgroundGray,
-                  );
-                },
-              )
-        )
-    );
+              padding:
+                  EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+              itemBuilder: (context, index) {
+                var model = ItemInListNews();
+                if (controller.news.length == 1) {
+                  return model.emptyDataWidget();
+                } else {
+                  var type = ActionForItemType.Home;
+                  var item = controller.news[index];
+                  return model
+                      .buildItemInListView(context, popupItems, item, type,
+                          (NewsItem var1, ActionForItemType var2) {
+                    print('on item tap: ${var1.link}');
+                    model.insertDataToDB(item, false);
+                    Get.toNamed(myWebView, arguments: Args(link: item.link));
+                  }, (NewsItem var1, ActionForItemType var2) {
+                    model.insertDataToDB(item, true);
+                    print('on selected tap: ${var1.link}');
+                  });
+                }
+              },
+              itemCount: controller.news.length,
+              separatorBuilder: (BuildContext context, int index) {
+                return Container(
+                  height: 10,
+                  color: backgroundGray,
+                );
+              },
+            )));
   }
 
   Widget _drawer(BuildContext context) {
@@ -242,32 +248,15 @@ class MainNews extends GetView<MainNewsController> {
   }
 
   Widget _bottomBar() {
-    // List<BottomBarItem> bottomItem = [];
-    // controller.currentJsonNews.forEach((key, value) {
-    //   var model = BottomBarModel(title: key, url: value);
-    //   var view = BottomBarItem(
-    //       data: model,
-    //       onTap: () {
-    //         model.isSelected = true;
-    //         controller.fetchNews(model.title, model.url);
-    //       });
-    //
-    //   if (controller.fetchFirstNew) {
-    //     controller.fetchFirstNew = false;
-    //     controller.fetchNews(model.title, model.url);
-    //   }
-    //
-    //   bottomItem.add(view);
-    // });
     return Container(
       height: 56,
       decoration: BoxDecoration(color: Colors.blue),
       child: Obx(
-        ()=> ListView.separated(
+        () => ListView.separated(
           scrollDirection: Axis.horizontal,
           padding: EdgeInsets.only(left: 15, right: 15),
           itemCount: controller.currentJsonNews.length,
-          itemBuilder: (context, index){
+          itemBuilder: (context, index) {
             var key = controller.currentJsonNews.keys.elementAt(index);
             var value = controller.currentJsonNews.value[key] ?? '';
             var model = BottomBarModel(title: key, url: value);
@@ -283,9 +272,10 @@ class MainNews extends GetView<MainNewsController> {
               controller.fetchNews(model.title, model.url);
             }
             return view;
-          }, separatorBuilder: (context, index) {
+          },
+          separatorBuilder: (context, index) {
             return Divider();
-        },
+          },
         ),
       ),
     );
